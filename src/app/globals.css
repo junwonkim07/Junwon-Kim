@@ -10,9 +10,9 @@
   /* `--font-sans: var(--font-sans)` was self-referential, so it resolved to
      nothing and every page fell back to the browser default. */
   /* One family for everything — sans, "mono" and headings all resolve here. */
-  --font-sans: var(--font-instrument-sans);
-  --font-mono: var(--font-instrument-sans);
-  --font-heading: var(--font-instrument-sans);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-body);
+  --font-heading: var(--font-body);
   --color-accent-1: var(--accent-1);
   --color-accent-2: var(--accent-2);
   --color-accent-3: var(--accent-3);
@@ -157,8 +157,8 @@
 /*
  * TYPE SYSTEM — one family, hierarchy from weight/size/tracking/colour.
  *
- * Family: Instrument Sans only. A second display face was tried twice and read
- * as a different site inside cards.
+ * Family: Archivo only. A second display face was tried twice and read as a
+ * different site inside cards.
  *
  * Scale: modular, Major Third (1.250) on a 16px base, so every step is a fixed
  * musical interval rather than an arbitrary pixel value:
@@ -166,8 +166,9 @@
  * Display sizes are fluid via clamp() so they scale with the viewport instead
  * of stepping at breakpoints.
  *
- * Weight: Instrument Sans is variable across 400–700. Weight is the primary
- * hierarchy tool — it separates levels without changing size at all.
+ * Weight: Archivo is variable across the full 100–900 range, so Thin and Light
+ * are genuinely available. Weight is the primary hierarchy tool — it separates
+ * levels without changing size at all.
  *
  * Tracking follows optical size: tight (negative) as type gets larger, neutral
  * at body size, open (positive) for small uppercase labels.

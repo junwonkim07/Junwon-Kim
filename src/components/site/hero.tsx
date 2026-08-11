@@ -20,11 +20,14 @@ export function Hero() {
   const titleY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // Weight is the whole composition here: the name sits at 700 and every other
+  // line falls away below it. Archivo carries the full 100–900 axis, so Thin and
+  // Light are real weights rather than faked with opacity.
   const lines = [
-    portfolio.headerTaglineOne,
-    portfolio.headerTaglineTwo,
-    portfolio.headerTaglineThree,
-    portfolio.headerTaglineFour,
+    { text: portfolio.headerTaglineOne, weight: "font-thin" }, // 100
+    { text: portfolio.headerTaglineTwo, weight: "font-bold" }, // 700
+    { text: portfolio.headerTaglineThree, weight: "font-extralight" }, // 200
+    { text: portfolio.headerTaglineFour, weight: "font-light" }, // 300
   ];
 
   return (
@@ -50,7 +53,7 @@ export function Hero() {
         <h1 className="t-display text-balance">
           {lines.map((line, i) => (
             <motion.span
-              key={line}
+              key={line.text}
               initial={{ y: "110%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{
@@ -58,14 +61,9 @@ export function Hero() {
                 delay: 0.08 * i,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              // Only the name carries the bold weight; the surrounding lines
-              // drop to 400 so the emphasis lands on one line instead of four.
-              // Instrument Sans bottoms out at 400 — the family has no Light.
-              className={`block ${
-                i === 1 ? "font-bold" : "font-normal opacity-55"
-              }`}
+              className={`block ${line.weight}`}
             >
-              {line}
+              {line.text}
             </motion.span>
           ))}
         </h1>

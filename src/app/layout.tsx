@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Sans } from "next/font/google";
+import { Archivo } from "next/font/google";
 import Script from "next/script";
 import { Providers } from "./providers";
 import { Header } from "@/components/site/header";
@@ -10,12 +10,13 @@ import { portfolio } from "@/lib/portfolio";
 import { ADSENSE_CLIENT, GA_MEASUREMENT_ID, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-// One typeface for the whole site. Instrument Sans is variable across 400–700,
-// so hierarchy comes from weight, size, tracking and colour rather than from
-// mixing families — see the type scale in globals.css.
-
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
+// One typeface for the whole site. Archivo replaced Instrument Sans because its
+// variable axis covers the full 100–900 range: Instrument Sans bottoms out at
+// 400, so Thin and Light were simply unavailable. Same grotesque genre, so the
+// switch costs little in feel. No `weight` is passed, which keeps the whole axis
+// rather than pinning single instances.
+const archivo = Archivo({
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
@@ -54,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       // No h-full on <html>: it pins the root box to the viewport while the body
       // overflows it, and Lenis derives its scroll limit from those dimensions —
       // the last screen, including the footer, became unreachable.
-      className={`${instrumentSans.variable} antialiased`}
+      className={`${archivo.variable} antialiased`}
     >
       <body className="bg-background text-foreground flex min-h-screen flex-col">
         {/*
