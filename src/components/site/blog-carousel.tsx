@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Carousel_006 } from "@/components/ui/skiper-ui/skiper54";
+import { Carousel_005 } from "@/components/ui/skiper-ui/skiper51";
 
 export interface CarouselPost {
   slug: string;
@@ -17,8 +17,8 @@ export function BlogCarousel({ posts }: { posts: CarouselPost[] }) {
 
   return (
     <div className="relative">
-      {/* Carousel_006 renders plain <img> tags with no link affordance and no
-          slot for extra attributes, so the click is resolved by matching the
+      {/* Carousel_005 takes only {src, alt} and renders plain <img> tags with no
+          slot for extra attributes, so a click is resolved by matching the
           image's src back to the post it came from. */}
       <div
         onClick={(e) => {
@@ -30,19 +30,17 @@ export function BlogCarousel({ posts }: { posts: CarouselPost[] }) {
         }}
         className="cursor-pointer"
       >
-        <Carousel_006
-          images={posts.map((p) => ({
-            src: p.image,
-            alt: p.title,
-            title: p.title,
-          }))}
-          autoplay
-          loop
-          showNavigation
+        <Carousel_005
+          images={posts.map((p) => ({ src: p.image, alt: p.title }))}
           showPagination
+          showNavigation
+          loop
+          autoplay
         />
       </div>
 
+      {/* The carousel is pointer-driven; these keep every post reachable by
+          keyboard and to crawlers. */}
       <ul className="sr-only">
         {posts.map((p) => (
           <li key={p.slug}>
