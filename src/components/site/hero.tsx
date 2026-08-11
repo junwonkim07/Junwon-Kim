@@ -58,7 +58,12 @@ export function Hero() {
                 delay: 0.08 * i,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className={`block ${i > 1 ? "opacity-40" : ""}`}
+              // Only the name carries the bold weight; the surrounding lines
+              // drop to 400 so the emphasis lands on one line instead of four.
+              // Instrument Sans bottoms out at 400 — the family has no Light.
+              className={`block ${
+                i === 1 ? "font-bold" : "font-normal opacity-55"
+              }`}
             >
               {line}
             </motion.span>
