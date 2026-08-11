@@ -260,7 +260,13 @@ export function GithubCalendar({
 
                             return (
                                 <motion.div
-                                    key={day.date}
+                                    // Positional key, not day.date. The grid is
+                                    // padded to whole weeks with blank days that
+                                    // carry an empty date, so keying on the date
+                                    // gave several siblings the same key. The
+                                    // grid never reorders, so the coordinate is
+                                    // a stable identity.
+                                    key={`${weekIndex}-${dayIndex}`}
                                     initial={{ opacity: 0, scale: 0 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{
