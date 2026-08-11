@@ -1,0 +1,210 @@
+{
+  "name": "Junwon Kim",
+  "headerTaglineOne": "Hello",
+  "headerTaglineTwo": "I'm Junwon Kim",
+  "headerTaglineThree": "A high school student",
+  "headerTaglineFour": "From Qingdao, China",
+  "showCursor": true,
+  "showBlog": true,
+  "darkMode": true,
+  "showResume": true,
+  "socials": [
+    {
+      "id": "1",
+      "title": "Github",
+      "link": "https://github.com/junwonkim07"
+    },
+    {
+      "id": "2",
+      "title": "LinkedIn",
+      "link": "https://www.linkedin.com/in/junwon-kim-954a662ab/"
+    },
+    {
+      "id": "4",
+      "title": "Blog",
+      "link": "https://junwonkim-int.netlify.app/blog"
+    },
+    {
+      "id": "17a0e8b3-1dc1-4b41-9e6b-3ca74103195c",
+      "title": "Email",
+      "link": "mailto:junwonkim04@outlook.com"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "ZYMBROS.",
+      "description": "ZYMBROS. is a Personalized AI Fitness Trainer that helps you achieve your fitness goals.",
+      "imageSrc": "/images/zymbros.jpg",
+      "url": "https://gbrs.netlify.app/"
+    },
+    {
+      "id": "2",
+      "title": "Photo Gallery",
+      "description": "This is what I enjoy when I'm not doing things in here.",
+      "imageSrc": "/images/photogallery.jpg",
+      "url": "https://lightroom.adobe.com/v2c/spaces/a2ff8effbcc5488e8a704431367ac611/assets/649caab172594ab8bd8ea803aee65b87/revisions/7cbe6fc5a5fe6e0c1609422dfeea0c30/renditions/1f17b54843992783dc599cb44e95a9ea"
+    }
+  ],
+  "services": [
+    {
+      "id": "5d07510b-1186-4b1c-9fbd-7b657c3cfb88",
+      "title": "ZYMBROS.",
+      "description": "ZYMBROS. is a Personalized AI Fitness Trainer that helps you achieve your fitness goals (https://github.com/junwonkim07/ZYMBROS.)\n"
+    },
+    {
+      "id": "b4fcb7c2-b982-4b9a-9367-05a592d6ab04",
+      "title": "WB Online Judge",
+      "description": "An onlinejudge system based on Python and Vue (https://github.com/junwonkim07/WB_OnlineJudge)"
+    },
+    {
+      "id": "c8f6da2d-bf85-4c7f-82a2-faa671dc5909",
+      "title": "Staking-Contract",
+      "description": "Staking smart contract for Sepolia test network (https://github.com/junwonkim07/Staking-Contract)"
+    },
+    {
+      "id": "336bee68-dd59-49bf-8c43-a79bd4e3cce0",
+      "title": "Personal Website",
+      "description": "This is my personal website—this website :)—built with React, Next.js and Tailwind CSS."
+    },
+    {
+      "id": "3c209033-f1a1-4d81-b34b-9f0c50f65632",
+      "title": "School Log Achiver",
+      "description": "This is python script works with selenium library. This script copy & save high school log automatically (https://github.com/junwonkim07/WBHPA_archiever)"
+    },
+    {
+      "id": "f54b1b85-0050-4786-a9a0-7994c17a0778",
+      "title": "repoShorts",
+      "description": "Github repository recommend service built with React, Next.Js, and Tailwind CSS. (https://github.com/junwonkim07/repoShorts)"
+    }
+  ],
+  "aboutpara": "Hello, I'm Junwon. I'm a **Korean high school junior student** at Qingdao Daewon International School. I was raised in Korea, but now I live and study in Qingdao, China.\n\nPreviously, I enjoyed **competitive programming**, solving problems algorithmically with C/C++. I also **founded a Competitive Programming Club and AI Hackathon** in my high school. I organized events, **developed a school online judge (wboj.app)**, and created algorithm problems.\n\nI spent one summer as a **software engineering intern at Smooth**, where I **developed a launch pad platform and a smart contract** for the Sepolia test network.\n\nNow, I'm currently focusing on **machine learning, computer vision, image processing, and cloud computing**. I'm thinking about how to **process large data like images or videos with fewer resources** for both clients and service providers.\n\nWhen I'm not doing the above, I usually take photos, play my guitar, or work out at a gym.",
+  "resume": {
+    "tagline": "Product Owner & Founding Engineer at Onword Lab, based in Seoul.",
+    "description": "I started in **competitive programming**, sharpening my problem-solving instincts through algorithmic challenges in C/C++. That foundation in performance-conscious thinking now drives my work in **machine learning**, **computer vision**, and **image processing**.\n\nMy current focus is **efficient, large-scale media processing** — how to handle images and video streams without placing heavy burdens on either the client or the infrastructure side. I'm particularly interested in **decentralized architectures** as a path toward making these pipelines more scalable and resource-efficient.",
+    "experiences": [
+      {
+        "id": "onword-lab-po",
+        "dates": "2026 July - Present",
+        "type": "Full-time",
+        "position": "Product Owner & Founding Engineer at Onword Lab",
+        "bullets": []
+      },
+      {
+        "id": "torchlight-founder",
+        "dates": "2026 February - Present",
+        "type": "Self-employed",
+        "position": "Founder at TorchLight",
+        "bullets": [
+          "Built and scaled a subscription-based VPN SaaS platform serving 80+ active users",
+          "Implemented high-performance network proxy protocols including VLESS and REALITY for secure, low-latency data transmission",
+          "Managed server infrastructure across 6 nodes in 4 countries (Korea, Japan, UK, US)"
+        ]
+      },
+      {
+        "id": "runanywhere-contrib",
+        "dates": "2026 January - 2026 February",
+        "type": "Volunteer",
+        "position": "Contributor at RunAnywhere (YC W26)",
+        "bullets": []
+      },
+      {
+        "id": "cosmos-founder",
+        "dates": "2025 September - Present",
+        "type": "Founder",
+        "position": "Founder at COSMOS, Qingdao Daewon School",
+        "bullets": [
+          "Organized the Electrical & Software (E&S) team",
+          "Designed and implemented end-to-end circuit systems for a rocket thrust test stand",
+          "Developed control software for rocket ignition and alarm systems",
+          "Built a thrust data analysis tool for post-test performance evaluation"
+        ]
+      },
+      {
+        "id": "b352a722-749d-441c-b56d-b3527c6345a8",
+        "dates": "2024 May - 2025 May",
+        "type": "Former Team Member",
+        "position": "Content Author at USACO Guide (CPI)",
+        "bullets": [
+          "Created content (modules, problem solutions) for the USACO Guide",
+          "Submitted code reviews for incoming Pull Requests"
+        ]
+      },
+      {
+        "id": "42f1c8a4-8997-4360-9abe-fedfd09120df",
+        "dates": "2024 July - 2024 September",
+        "type": "Internship",
+        "position": "Software Engineering Intern at Smooth",
+        "bullets": [
+          "Implemented handwritten character recognition using a convolutional neural network",
+          "Explored recurrent neural networks, reinforcement learning, and generative adversarial networks",
+          "Re-implemented handwritten character recognition on BitTensor",
+          "Created a token and deployed it to a liquidity pool on a decentralized exchange"
+        ]
+      },
+      {
+        "id": "c77de1eb-71ef-4384-b8a0-8c4c1b3c5383",
+        "dates": "2023 September - 2025 May",
+        "type": "Founder, Lead",
+        "position": "Founder & Lead at Wanbang Competitive Programming Initiative (WBCPI)",
+        "bullets": [
+          "Organized and held competitive programming contests (WBDC) within the school",
+          "Developed the WBOJ (Wanbang Online Judge) platform — wboj.app",
+          "Held a school-wide AI hackathon"
+        ]
+      },
+      {
+        "id": "714370a9-c463-4857-ac44-e52a271f81e4",
+        "dates": "2023 September - 2025 July",
+        "type": "Leader",
+        "position": "Team Leader at Rhythm Computer Science Club",
+        "bullets": [
+          "Revised curriculum for Computer Systems, Circuit Theory, and Algorithm Problem Solving",
+          "Developed a Q&A platform for team members (wbrhythm.netlify.app)",
+          "Organized training sessions and guided the team through USACO and ACSL contest preparation"
+        ]
+      },
+      {
+        "id": "korea-herald-journalist",
+        "dates": "2020 July - 2021 June",
+        "type": "Internship",
+        "position": "Student Journalist at The Korea Herald",
+        "bullets": [
+          "Authored monthly English-language articles covering politics, society, and science",
+          "Sourced and verified information across diverse subject areas"
+        ]
+      }
+    ],
+    "education": [
+      {
+        "id": "qingdao-daewon",
+        "name": "Qingdao Daewon School",
+        "dates": "2025 May - 2026 July",
+        "note": ""
+      },
+      {
+        "id": "harbin-wanbang",
+        "name": "Harbin Wanbang School",
+        "dates": "2021 August - 2025 May",
+        "note": ""
+      }
+    ],
+    "languages": [
+      "C/C++",
+      "Python",
+      "Java",
+      "Kotlin"
+    ],
+    "frameworks": [
+      "Pytorch",
+      "Node.js",
+      "Next.js"
+    ],
+    "others": [
+      "USA Computing Olympiad (USACO) Silver Award (February 2025 Contest)",
+      "AAPT Physics Photo Contest, Top 100 (July 2024)",
+      "TOEFL iBT (February 2025)",
+      "HSK Level 6 (January 2026)"
+    ]
+  }
+}
