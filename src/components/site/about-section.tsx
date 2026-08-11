@@ -10,7 +10,7 @@
  */
 export function AboutSection({ html }: { html: string }) {
   return (
-    <div className="bg-background border-foreground/10 rounded-3xl border p-6 sm:p-10">
+    <div className="bg-background">
       <div
         className="t-body-lg space-y-6 opacity-70 [&_strong]:font-semibold [&_strong]:opacity-100"
         dangerouslySetInnerHTML={{ __html: html }}

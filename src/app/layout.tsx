@@ -51,9 +51,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${instrumentSans.variable} h-full antialiased`}
+      // No h-full on <html>: it pins the root box to the viewport while the body
+      // overflows it, and Lenis derives its scroll limit from those dimensions —
+      // the last screen, including the footer, became unreachable.
+      className={`${instrumentSans.variable} antialiased`}
     >
-      <body className="bg-background text-foreground flex min-h-full flex-col">
+      <body className="bg-background text-foreground flex min-h-screen flex-col">
         {/*
           next/script rather than raw <head> tags: AdSense rewrites its own
           script element on load, which React counts as a hydration mismatch

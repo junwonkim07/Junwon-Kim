@@ -11,11 +11,17 @@ export const metadata: Metadata = {
   description: portfolio.resume.tagline,
 };
 
+/**
+ * Sidebar label, deliberately not t-h2. This sits in a fixed-width column beside
+ * the content, and the display-size h2 (~49px) overran that column and collided
+ * with the timeline. It reads as a section heading through weight and the
+ * numeral, not through size.
+ */
 function SectionLabel({ index, title }: { index: string; title: string }) {
   return (
-    <div className="flex items-baseline gap-4 lg:sticky lg:top-28">
+    <div className="flex min-w-0 items-baseline gap-3 lg:sticky lg:top-28">
       <span className="t-meta opacity-30">{index}</span>
-      <h2 className="t-h2">{title}</h2>
+      <h2 className="t-h3">{title}</h2>
     </div>
   );
 }
@@ -43,7 +49,7 @@ export default async function ResumePage() {
       />
 
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
-        <section className="grid gap-10 py-28 lg:grid-cols-[220px_1fr]">
+        <section className="grid gap-10 py-28 lg:grid-cols-[200px_minmax(0,1fr)]">
           <SectionLabel index="01" title="Experience" />
 
           <ol className="border-foreground/10 relative space-y-12 border-l pl-8">
@@ -75,7 +81,7 @@ export default async function ResumePage() {
           </ol>
         </section>
 
-        <section className="grid gap-10 py-28 lg:grid-cols-[220px_1fr]">
+        <section className="grid gap-10 py-28 lg:grid-cols-[200px_minmax(0,1fr)]">
           <SectionLabel index="02" title="Education" />
           <ol className="space-y-8">
             {resume.education.map((school, i) => (
@@ -94,7 +100,7 @@ export default async function ResumePage() {
           </ol>
         </section>
 
-        <section className="grid gap-10 py-28 lg:grid-cols-[220px_1fr]">
+        <section className="grid gap-10 py-28 lg:grid-cols-[200px_minmax(0,1fr)]">
           <SectionLabel index="03" title="Skills" />
           <div className="grid gap-4 sm:grid-cols-2">
             {skillGroups.map((group, i) => (
