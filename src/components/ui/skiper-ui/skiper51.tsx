@@ -3,7 +3,12 @@
 import { motion } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React from "react";
-import { Autoplay, EffectCreative, Pagination } from "swiper/modules";
+import {
+  Autoplay,
+  EffectCreative,
+  Navigation,
+  Pagination,
+} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-creative";
@@ -96,7 +101,14 @@ const Carousel_005 = ({
   .Carousal_005 .swiper-slide {
     background-position: center;
     background-size: cover;
-     border-radius: 25px;
+    border-radius: 25px;
+    /* slidesPerView="auto" makes Swiper take the slide width from CSS, and
+       upstream never sets one. With no width the slide collapses to its
+       content, so the child img's w-100% resolved against an auto-width parent
+       and the image spilled out at its intrinsic size, off-centre. */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   .Carousal_005 .swiper-pagination-bullet {
@@ -134,9 +146,32 @@ const Carousel_005 = ({
           }
           effect="creative"
           grabCursor={true}
-          slidesPerView="auto"
-          centeredSlides={true}
-          loop={loop}
+          // 1, not "auto". With "auto" Swiper reads each slide's width from CSS
+          // and caches it on init, so it measured the slides before the
+          // injected <style> applied and kept stale widths — the active slide
+          // ended up sized differently and pushed outside the container.
+          // A numeric value makes Swiper derive the width from its own
+          // container instead.
+          slidesPerView={1}
+          // No centeredSlides. effect="creative" positions every slide itself
+          // through transforms, and centering adds a second offset on top, so
+          // the active slide was translated a full container width to the right
+          // and sat outside the frame.
+          // Swiper measures slides once on init and keeps those numbers. This
+          // mounts inside a section whose width is still settling (fonts, the
+          // injected <style>, the parent's max-width), so without these it kept
+          // translating against a stale width and the active slide landed
+          // outside the container.
+          observer={true}
+          observeParents={true}
+          resizeObserver={true}
+          // rewind, not loop. effect="creative" turns on virtualTranslate, which
+          // pins the wrapper at 0 and positions slides purely by transform.
+          // loop prepends duplicate slides and compensates with a wrapper
+          // offset — an offset virtualTranslate discards, so every slide ended
+          // up one full width to the right. rewind cycles back to the first
+          // slide without duplicating anything.
+          rewind={loop}
           pagination={
             showPagination
               ? {
@@ -162,7 +197,10 @@ const Carousel_005 = ({
               translate: ["100%", 0, 0],
             },
           }}
-          modules={[EffectCreative, Pagination, Autoplay]}
+          // Navigation was missing: showNavigation renders the arrow buttons and
+          // passes nextEl/prevEl, but without the module registered the arrows
+          // were inert.
+          modules={[EffectCreative, Pagination, Autoplay, Navigation]}
         >
           {images.map((image, index) => (
             <SwiperSlide key={index} className="">

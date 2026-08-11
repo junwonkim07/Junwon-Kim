@@ -30,7 +30,10 @@ export function BlogCarousel({ posts }: { posts: CarouselPost[] }) {
         }}
         className="cursor-pointer"
       >
+        {/* Carousel_005 caps itself at max-w-4xl with its own horizontal
+            padding; both are dropped so it fills the section width. */}
         <Carousel_005
+          className="max-w-none px-0"
           images={posts.map((p) => ({ src: p.image, alt: p.title }))}
           showPagination
           showNavigation
