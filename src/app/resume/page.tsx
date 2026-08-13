@@ -139,7 +139,13 @@ export default async function ResumePage() {
           <SectionLabel index="03" title="Skills" />
           <div className="grid gap-4 sm:grid-cols-2">
             {skillGroups.map((group, i) => (
-              <Reveal key={group.label} delay={i * 0.05}>
+              // The column span belongs on this wrapper: Reveal is the grid
+              // item, so a span set on SkillCard inside it did nothing.
+              <Reveal
+                key={group.label}
+                delay={i * 0.05}
+                className={group.wide ? "sm:col-span-2" : ""}
+              >
                 <SkillCard
                   label={group.label}
                   items={group.items}

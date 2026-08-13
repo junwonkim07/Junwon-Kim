@@ -12,11 +12,9 @@ export function SkillCard({
   wide?: boolean;
 }) {
   return (
-    <div
-      className={`border-foreground/10 hover:border-foreground/30 bg-background h-full rounded-2xl border p-6 transition-colors ${
-        wide ? "sm:col-span-2" : ""
-      }`}
-    >
+    // `wide` only controls the internal two-column list. The grid span lives on
+    // the wrapper in the page, which is the actual grid item.
+    <div className="border-foreground/10 hover:border-foreground/30 bg-background h-full rounded-2xl border p-6 transition-colors">
       <h3 className="t-eyebrow opacity-45">{label}</h3>
       <ul className={wide ? "mt-5 grid gap-2 sm:grid-cols-2" : "mt-5 space-y-2"}>
         {items.map((item, i) => (
