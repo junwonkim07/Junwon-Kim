@@ -54,8 +54,11 @@ export function BlogCard({ post }: { post: BlogCardPost }) {
   return (
     <Link href={`/blog/${post.slug}`} className="block">
       <HoverTransition
-        effect="strips"
-        direction="right"
+        effect="morph"
+        // morph feeds direction into transformOrigin, and it scales and rotates
+        // the whole panel — anchoring to an edge makes it swing in from that
+        // side rather than resolve in place.
+        direction="center"
         duration={0.72}
         label={`Preview of ${post.title}`}
         defaultComponent={<Face post={post} />}
