@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TextRoll } from "@/components/ui/skiper-ui/skiper58";
 import { ThemeToggle } from "@/components/site/theme-toggle";
+import { scrollToHash } from "@/components/site/smooth-scroll";
 import { contactHref, portfolio } from "@/lib/portfolio";
 
 const links = [
@@ -13,6 +15,7 @@ const links = [
 ].filter((l) => l.show);
 
 export function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -46,6 +49,18 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
+              // Hash links jump instantly, and on this site they also fight
+              // Lenis, which owns scrolling. When the target is already on the
+              // current page, animate to it instead. From another page the
+              // click falls through to a normal navigation.
+              onClick={(e) => {
+                const [path, hash] = link.href.split("#");
+                if (!hash) return;
+                const samePage = pathname === (path || "/");
+                if (samePage && scrollToHash(`#${hash}`)) {
+                  e.preventDefault();
+                }
+              }}
               className="text-sm font-medium tracking-tight"
             >
               <TextRoll>{link.label}</TextRoll>
