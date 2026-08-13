@@ -28,7 +28,11 @@ export function Cursor() {
   const opacity = useSpring(0, { mass: 0.1, damping: 15, stiffness: 200 });
 
   useEffect(() => {
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    // any-pointer, not pointer. `pointer` describes only the *primary* input,
+    // so a touchscreen laptop reports coarse even with a mouse plugged in and
+    // the cursor never appeared. `any-pointer: fine` is true whenever some
+    // precise input exists, which is the actual condition for wanting this.
+    const finePointer = window.matchMedia("(any-pointer: fine)").matches;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
