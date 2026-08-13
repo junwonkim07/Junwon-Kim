@@ -4,6 +4,7 @@ import html from "remark-html";
 import { Reveal } from "@/components/site/reveal";
 import { ResumeIntro } from "@/components/site/resume-intro";
 import { SkillCard } from "@/components/site/skill-card";
+import { ProgressiveBlur } from "@/components/ui/skiper-ui/skiper41";
 import { portfolio } from "@/lib/portfolio";
 
 export const metadata: Metadata = {
@@ -42,13 +43,47 @@ export default async function ResumePage() {
 
   return (
     <div className="bg-background relative">
+      {/*
+        Edge fade. ProgressiveBlur is absolutely positioned internally, so the
+        fixed placement lives on these wrappers. The top band starts below the
+        64px header rather than at 0, otherwise it stacks on the header's own
+        backdrop blur and reads as a grey bar. z-40 keeps both under the header
+        (z-50) and above the content.
+
+        An earlier version of this covered the last experience entry
+        permanently; the content column now carries enough bottom padding for
+        the final item to scroll clear of the band.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 top-16 z-40 h-24"
+      >
+        <ProgressiveBlur
+          position="top"
+          backgroundColor="var(--background)"
+          height="96px"
+          blurAmount="3px"
+        />
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-24"
+      >
+        <ProgressiveBlur
+          position="bottom"
+          backgroundColor="var(--background)"
+          height="96px"
+          blurAmount="3px"
+        />
+      </div>
+
       <ResumeIntro
         name={name}
         tagline={resume.tagline}
         descriptionHtml={description}
       />
 
-      <div className="mx-auto max-w-5xl px-5 sm:px-8">
+      <div className="mx-auto max-w-5xl px-5 pb-32 sm:px-8">
         <section className="grid gap-10 py-28 lg:grid-cols-[200px_minmax(0,1fr)]">
           <SectionLabel index="01" title="Experience" />
 
