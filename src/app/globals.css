@@ -269,7 +269,4 @@ html.custom-cursor * {
  * about a second after toggling. Excluding the root from snapshot capture and
  * keeping the wipe short removes that hand-off.
  */
-::view-transition-old(root),
-::view-transition-new(root) {
-  mix-blend-mode: normal;
-}
+/* Theme swapping is instant; see ThemeToggle and Providers. */

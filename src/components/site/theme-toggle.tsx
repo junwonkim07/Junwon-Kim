@@ -2,25 +2,30 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
-import { useThemeToggle } from "@/components/ui/skiper-ui/skiper26";
+import { useTheme } from "next-themes";
 
 /**
- * Skiper 26's own ThemeToggleButton is a fixed black disc with a hardcoded
- * white/black SVG, so it reads as a foreign object on a dark page and cannot be
- * restyled. Only the hook is reused here — it still drives the View Transition
- * wipe — wrapped in a pill that inherits the site's colours.
+ * Plain class swap, no View Transition.
+ *
+ * This used Skiper 26's useThemeToggle, which runs the swap inside
+ * document.startViewTransition with a circular mask wipe. That wipe snapshots
+ * the whole page and composites an old and a new layer, and it flashed the
+ * entire screen on every toggle. Three attempts at tuning it — the branch
+ * condition, next-themes' disableTransitionOnChange, and the blend mode on the
+ * transition pseudo-elements — each failed, and none could be observed here
+ * because the animation runs on a rAF loop this environment throttles.
+ *
+ * Swapping the class outright cannot flash: there is no snapshot, no second
+ * layer and no animation. Only the icon animates, which is local to this button.
  */
 export function ThemeToggle() {
-  const { isDark, toggleTheme } = useThemeToggle({
-    variant: "circle-blur",
-    start: "top-right",
-    blur: true,
-  });
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       className="border-foreground/15 hover:border-foreground/40 hover:bg-foreground/5 relative grid size-9 place-items-center rounded-full border transition-colors"
     >
