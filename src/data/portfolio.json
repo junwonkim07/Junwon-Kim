@@ -88,7 +88,14 @@
         "dates": "2026 July - Present",
         "type": "Full-time",
         "position": "Product Owner & Founding Engineer at Onword Lab",
-        "bullets": []
+        "bullets": [
+          "Built and shipped an internal AI agent platform on AWS — VPC, RDS, ECS Fargate, S3 and CloudFront provisioned with Terraform, with GitHub Actions deploying the API, web app and admin board on merge",
+          "Implemented a durable agent execution loop with persistent memory, streamed responses and self-managed scheduled jobs; cut pre-answer routing from two LLM calls to one by reusing the planner decision in the runtime",
+          "Integrated Slack, Gmail, Google Drive and Notion — per-user OAuth so employees link their own accounts, Google domain-wide delegation for organisation-wide collection, and threaded Gmail replies",
+          "Routed every outbound action through an approval card where the sending identity, recipients and destination are chosen and editable before dispatch",
+          "Hardened access control: PII masking including Korean names, server-side roster verification that stopped messages being addressed to the wrong colleague, per-tenant credential isolation after a cross-company token fallback, and role-scoped administration for 40 employees",
+          "Moved model management onto Vertex AI Model Garden as the single source of truth, with official pricing resolved automatically and the billing GCP project switchable from the dashboard"
+        ]
       },
       {
         "id": "torchlight-founder",
