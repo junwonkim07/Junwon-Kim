@@ -106,7 +106,10 @@
         "dates": "2026 January - 2026 February",
         "type": "Volunteer",
         "position": "Contributor at RunAnywhere (YC W26)",
-        "bullets": []
+        "bullets": [
+          "Reviewed incoming pull requests",
+          "Revised and corrected developer documentation"
+        ]
       },
       {
         "id": "cosmos-founder",
