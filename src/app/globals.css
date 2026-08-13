@@ -152,6 +152,20 @@
   html {
     @apply font-sans;
   }
+
+  /*
+   * The custom cursor replaces the system one. This class is added by <Cursor />
+   * only once it is actually running and removed on cleanup, so the native
+   * cursor is never hidden without a replacement drawn in its place. Interactive
+   * elements are included deliberately — otherwise the system pointer reappears
+   * over every link and button.
+   */
+  html.custom-cursor,
+  html.custom-cursor *,
+  html.custom-cursor a,
+  html.custom-cursor button {
+    cursor: none;
+  }
 }
 
 /*
