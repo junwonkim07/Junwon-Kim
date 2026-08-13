@@ -39,8 +39,7 @@ export interface Resume {
   experiences: Experience[];
   /** An array since 4.0: the single-object shape could only hold one school. */
   education: Education[];
-  languages: string[];
-  frameworks: string[];
+  /** Awards and certifications. */
   others: string[];
 }
 
