@@ -3,7 +3,6 @@ import { remark } from "remark";
 import html from "remark-html";
 import { Reveal } from "@/components/site/reveal";
 import { ResumeIntro } from "@/components/site/resume-intro";
-import { SkillCard } from "@/components/site/skill-card";
 import { ProgressiveBlur } from "@/components/ui/skiper-ui/skiper41";
 import { portfolio } from "@/lib/portfolio";
 
@@ -32,14 +31,6 @@ export default async function ResumePage() {
   const description = (
     await remark().use(html).process(resume.description)
   ).toString();
-
-  const skillGroups = [
-    { label: "Languages", items: resume.languages, wide: false },
-    { label: "Frameworks", items: resume.frameworks, wide: false },
-    // Award and certification names run long; a half-width card wrapped them
-    // mid-title, so this one takes the full row and lays out in two columns.
-    { label: "Awards & Certifications", items: resume.others, wide: true },
-  ].filter((g) => g.items?.length);
 
   return (
     <div className="bg-background relative">
@@ -125,26 +116,37 @@ export default async function ResumePage() {
           </ol>
         </section>
 
-        <section className="grid gap-10 py-28 lg:grid-cols-[200px_minmax(0,1fr)]">
-          <SectionLabel index="03" title="Skills" />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {skillGroups.map((group, i) => (
-              // The column span belongs on this wrapper: Reveal is the grid
-              // item, so a span set on SkillCard inside it did nothing.
-              <Reveal
-                key={group.label}
-                delay={i * 0.05}
-                className={group.wide ? "sm:col-span-2" : ""}
-              >
-                <SkillCard
-                  label={group.label}
-                  items={group.items}
-                  wide={group.wide}
-                />
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        {/*
+          Was a "Skills" grid of Languages / Frameworks / Awards cards. The
+          language and framework lists are gone: they restated what the
+          experience entries already show, at less resolution. What remains is
+          the awards and certifications, so the section is named for that and
+          renders as a plain list like Education rather than a lone card.
+        */}
+        {resume.others.length > 0 && (
+          <section className="grid gap-10 py-28 lg:grid-cols-[200px_minmax(0,1fr)]">
+            <SectionLabel index="03" title="Awards" />
+            <ol className="space-y-6">
+              {resume.others.map((item, i) => {
+                // Entries read "Title (Date)". Splitting the trailing
+                // parenthetical off gives the same title/date pairing the
+                // education and experience entries use.
+                const match = item.match(/^(.*?)\s*\(([^()]*\d{4}[^()]*)\)\s*$/);
+                const title = match ? match[1] : item;
+                const when = match ? match[2] : null;
+
+                return (
+                  <Reveal key={item} delay={i * 0.05}>
+                    <li className="border-foreground/10 border-b pb-5">
+                      <p className="t-h3">{title}</p>
+                      {when && <p className="t-meta mt-1 opacity-45">{when}</p>}
+                    </li>
+                  </Reveal>
+                );
+              })}
+            </ol>
+          </section>
+        )}
       </div>
     </div>
   );
