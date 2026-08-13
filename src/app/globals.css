@@ -152,20 +152,26 @@
   html {
     @apply font-sans;
   }
+}
 
-  /*
-   * The custom cursor replaces the system one. This class is added by <Cursor />
-   * only once it is actually running and removed on cleanup, so the native
-   * cursor is never hidden without a replacement drawn in its place. Interactive
-   * elements are included deliberately — otherwise the system pointer reappears
-   * over every link and button.
-   */
-  html.custom-cursor,
-  html.custom-cursor *,
-  html.custom-cursor a,
-  html.custom-cursor button {
-    cursor: none;
-  }
+/*
+ * The custom cursor replaces the system one. <Cursor /> adds this class only
+ * once it is actually running and removes it on cleanup, so the native cursor
+ * is never hidden without a replacement drawn in its place.
+ *
+ * Deliberately NOT inside @layer base. Layered styles lose to later layers, so
+ * from base this was beaten by every Tailwind `cursor-*` utility — the theme
+ * toggle (cursor-pointer, cursor-grab) and the blog carousel still showed the
+ * system pointer. Unlayered declarations outrank every layer, so this wins
+ * without needing !important.
+ *
+ * The universal selector is required: cursor is inherited, but an element that
+ * sets its own value (a utility, or the UA stylesheet on links and inputs)
+ * overrides inheritance.
+ */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none;
 }
 
 /*
