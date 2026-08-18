@@ -1,3 +1,7 @@
+// Required by output: "export" — metadata routes are dynamic by default and
+// cannot be emitted as files without this.
+export const dynamic = "force-static";
+
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
 import { absoluteUrl } from "@/lib/site";
