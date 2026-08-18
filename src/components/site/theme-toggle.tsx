@@ -3,29 +3,50 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useCallback, useRef } from "react";
 
 /**
- * Plain class swap, no View Transition.
+ * Theme toggle with the browser's default View Transition cross-fade.
  *
- * This used Skiper 26's useThemeToggle, which runs the swap inside
- * document.startViewTransition with a circular mask wipe. That wipe snapshots
- * the whole page and composites an old and a new layer, and it flashed the
- * entire screen on every toggle. Three attempts at tuning it — the branch
- * condition, next-themes' disableTransitionOnChange, and the blend mode on the
- * transition pseudo-elements — each failed, and none could be observed here
- * because the animation runs on a rAF loop this environment throttles.
- *
- * Swapping the class outright cannot flash: there is no snapshot, no second
- * layer and no animation. Only the icon animates, which is local to this button.
+ * This deliberately does NOT reproduce Skiper 26's wipe. That one masked the
+ * incoming layer out to 350vmax and pushed the outgoing one to z-index -1, and
+ * the two layers composited into a full-screen flash on every toggle. The
+ * default cross-fade has no custom CSS at all: the browser fades one snapshot
+ * into the other, which is the part that was never the problem.
  */
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const running = useRef(false);
+
+  const toggle = useCallback(() => {
+    const next = isDark ? "light" : "dark";
+
+    // Starting a transition while one is in flight aborts the first, and every
+    // promise it owns rejects. Skip the animation instead.
+    if (running.current || !document.startViewTransition) {
+      setTheme(next);
+      return;
+    }
+
+    running.current = true;
+    const transition = document.startViewTransition(() => setTheme(next));
+
+    // ready, updateCallbackDone and finished are all created up front; any one
+    // left without a handler surfaces as an unhandled rejection if aborted.
+    transition.ready?.catch(() => {});
+    transition.updateCallbackDone?.catch(() => {});
+    transition.finished
+      .catch(() => {})
+      .finally(() => {
+        running.current = false;
+      });
+  }, [isDark, setTheme]);
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={toggle}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       className="border-foreground/15 hover:border-foreground/40 hover:bg-foreground/5 relative grid size-9 place-items-center rounded-full border transition-colors"
     >

@@ -270,3 +270,20 @@ html.custom-cursor * {
  * keeping the wipe short removes that hand-off.
  */
 /* Theme swapping is instant; see ThemeToggle and Providers. */
+/*
+ * Theme cross-fade. Only the duration is set — no mask, no z-index, no blend
+ * mode. Skiper 26's wipe manipulated all three and flashed the whole screen;
+ * the browser's own fade is left to do exactly what it does by default.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+}
+
+/* An explicit preference to reduce motion should skip the fade entirely. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
