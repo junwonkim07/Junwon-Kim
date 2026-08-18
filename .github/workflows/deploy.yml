@@ -54,13 +54,25 @@ jobs:
             -e "ssh -i ~/.ssh/deploy -o StrictHostKeyChecking=yes" \
             out/ "$USER@$HOST:$TARGET/"
 
-      - name: Check the site answers
+      # Checks the origin directly with a Host header rather than the public
+      # URL. Cloudflare answers 403 to the runner's datacenter IP, and the point
+      # is to prove what was just published is being served — not to test the
+      # edge or whatever it happens to have cached.
+      - name: Check the origin serves the new build
         env:
-          URL: ${{ vars.DEPLOY_URL }}
+          HOST: ${{ vars.DEPLOY_HOST }}
+          SITE: ${{ vars.DEPLOY_URL }}
         run: |
           set -euo pipefail
-          for path in / /blog/ /resume/; do
-            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 "$URL$path?ci=${GITHUB_SHA::7}")
-            echo "$path -> $code"
+          domain=${SITE#https://}
+          for path in / /blog/ /resume/ /sitemap.xml; do
+            body=$(curl -sS --max-time 30 -H "Host: $domain" "http://$HOST$path")
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 -H "Host: $domain" "http://$HOST$path")
+            echo "$path -> $code ($(printf '%s' "$body" | wc -c) bytes)"
             [ "$code" = "200" ] || exit 1
+            # A 200 on an empty or default page would still pass a status check.
+            case "$path" in
+              *.xml) printf '%s' "$body" | grep -q "<urlset" || { echo "  not a sitemap"; exit 1; } ;;
+              *)     printf '%s' "$body" | grep -q "Junwon Kim" || { echo "  page body is not the site"; exit 1; } ;;
+            esac
           done
