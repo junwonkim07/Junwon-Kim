@@ -1,0 +1,66 @@
+name: Deploy
+
+# Only main. Pull requests build through the branch protection checks, but the
+# origin is a live box and nothing unreviewed should reach it.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a second push mid-rsync would interleave file writes.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # output: "export" writes the whole site to out/.
+      - run: pnpm build
+
+      - name: Publish to the origin
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          HOST: ${{ vars.DEPLOY_HOST }}
+          USER: ${{ vars.DEPLOY_USER }}
+          TARGET: ${{ vars.DEPLOY_PATH }}
+        run: |
+          set -euo pipefail
+
+          test -s out/index.html || { echo "out/ is empty — refusing to deploy"; exit 1; }
+
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # --delete so removed pages actually disappear from the origin. It is
+          # scoped to the site directory, which holds nothing else.
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/deploy -o StrictHostKeyChecking=yes" \
+            out/ "$USER@$HOST:$TARGET/"
+
+      - name: Check the site answers
+        env:
+          URL: ${{ vars.DEPLOY_URL }}
+        run: |
+          set -euo pipefail
+          for path in / /blog/ /resume/; do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 "$URL$path?ci=${GITHUB_SHA::7}")
+            echo "$path -> $code"
+            [ "$code" = "200" ] || exit 1
+          done
