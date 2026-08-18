@@ -2,15 +2,12 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { useTheme } from "next-themes";
-import { LinePath } from "@/components/ui/skiper-ui/skiper19";
 import { FocusTicker } from "@/components/site/focus-ticker";
+import { GridBackdrop } from "@/components/site/grid-backdrop";
 import { Socials } from "@/components/site/socials";
 import { portfolio } from "@/lib/portfolio";
-import { strokeFor } from "@/lib/theme";
 
 export function Hero() {
-  const { resolvedTheme } = useTheme();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -35,16 +32,7 @@ export function Hero() {
       ref={ref}
       className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden px-5 sm:px-8"
     >
-      {/* Skiper 19's stroke, scaled down and pushed behind the type. Its native
-          size is 1278×2319, so it is clipped by the section rather than sized. */}
-      <div className="pointer-events-none absolute -top-40 -right-[35%] w-[120vw] opacity-30 sm:-right-[10%] sm:w-[70vw]">
-        <LinePath
-          className="h-auto w-full"
-          scrollYProgress={scrollYProgress}
-          stroke={strokeFor(resolvedTheme)}
-          strokeWidth={14}
-        />
-      </div>
+      <GridBackdrop scrollYProgress={scrollYProgress} />
 
       <motion.div
         style={{ y: titleY, opacity: fade }}
