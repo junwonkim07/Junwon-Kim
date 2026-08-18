@@ -102,7 +102,7 @@ const Column = ({ images, y }: ColumnProps) => {
           <img
             src={`${src}`}
             alt="image"
-            className="pointer-events-none object-cover"
+            className="pointer-events-none h-full w-full object-cover"
           />
         </div>
       ))}
@@ -110,7 +110,9 @@ const Column = ({ images, y }: ColumnProps) => {
   );
 };
 
-export { Skiper30 };
+// Column is the reusable half — the demo around it is hardcoded to nine
+// images, its own Lenis instance and a light-only palette.
+export { Column, Skiper30 };
 
 /**
  * Skiper 30 Parallax_002 — React + framer motion + lenis

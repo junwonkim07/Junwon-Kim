@@ -106,4 +106,6 @@ const Skiper61 = () => {
   );
 };
 
-export { SimpleMouseFollow, Skiper61, SpringMouseFollow };
+// SPRING is the reusable part: the demos around it are fixed 500px boxes
+// with their own background, but the tuning is what the site cursor wants.
+export { SimpleMouseFollow, Skiper61, SPRING, SpringMouseFollow };

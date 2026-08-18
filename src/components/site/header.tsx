@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { TextRoll } from "@/components/ui/skiper-ui/skiper58";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { scrollToHash } from "@/components/site/smooth-scroll";
@@ -68,12 +69,9 @@ export function Header() {
           ))}
 
           {contact && (
-            <a
-              href={contact}
-              className="border-foreground/15 hover:bg-foreground hover:text-background rounded-full border px-4 py-1.5 text-sm font-medium transition-colors"
-            >
-              Contact
-            </a>
+            <Button asChild variant="outline" size="sm" className="rounded-full">
+              <a href={contact}>Contact</a>
+            </Button>
           )}
 
           {mounted && portfolio.darkMode && <ThemeToggle />}

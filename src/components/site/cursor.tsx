@@ -2,11 +2,13 @@
 
 import { motion, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
+import { SPRING as SKIPER_SPRING } from "@/components/ui/skiper-ui/skiper61";
 
-// Spring feel taken from Skiper 61. That component's exports are demo boxes with
-// their own background and a fixed 500px frame, so the viewport-wide cursor is
-// implemented here rather than reused from it.
-const SPRING = { mass: 0.12, damping: 16, stiffness: 500 };
+// Skiper 61's spring, imported rather than restated. Its own exports are fixed
+// 500px demo boxes with their own background, so the viewport-wide cursor is
+// built here — but the tuning comes from the source. Stiffer, so the disc
+// tracks the pointer closely instead of trailing behind it.
+const SPRING = { ...SKIPER_SPRING, damping: 16, stiffness: 500 };
 
 /**
  * Replaces the system cursor rather than decorating it: `cursor: none` goes on
